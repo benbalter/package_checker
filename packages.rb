@@ -4,14 +4,14 @@ require 'dotenv'
 
 class PackageChecker
 
+  attr_accessor :username
+  attr_accessor :password
+
   WSDL = "http://www.buildinglink.com/Services/MobileLinkResident1_3.svc?singleWsdl"
 
-  def username
-    ENV["BL_USERNAME"]
-  end
-
-  def password
-    ENV["BL_PASSWORD"]
+  def initialize(options)
+    @username = options[:username]
+    @password = options[:password]
   end
 
   def client
@@ -54,5 +54,5 @@ end
 
 Dotenv.load
 
-checker = PackageChecker.new
+checker = PackageChecker.new :username => ENV["BL_USERNAME"], :password => ENV["BL_PASSWORD"]
 puts checker.events
