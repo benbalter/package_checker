@@ -1,6 +1,5 @@
 require 'httpclient'
 require 'savon'
-require 'dotenv'
 
 class PackageChecker
 
@@ -51,8 +50,3 @@ class PackageChecker
     client.call(:get_events, :message => message).body
   end
 end
-
-Dotenv.load
-
-checker = PackageChecker.new :username => ENV["BL_USERNAME"], :password => ENV["BL_PASSWORD"]
-puts checker.events
