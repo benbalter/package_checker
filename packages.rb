@@ -20,11 +20,6 @@ class PackageChecker
       env_namespace :soapenv
       convert_request_keys_to :lower_camelcase
       wsdl PackageChecker::WSDL
-      if PackageChecker.debug?
-        log_level :debug
-        log true
-        pretty_print_xml true
-      end
     end
   end
 
@@ -54,10 +49,6 @@ class PackageChecker
 
   def events
     client.call(:get_events, :message => message).body
-  end
-
-  def self.debug?
-    ENV["DEBUG"] == "1"
   end
 end
 
