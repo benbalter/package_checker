@@ -1,7 +1,12 @@
 require 'httpclient'
 require 'savon'
+require 'active_shipping'
+require 'dotenv'
 require_relative "package_checker/package"
 require_relative "package_checker/building"
+
+Dotenv.load
+I18n.enforce_available_locales = false
 
 class PackageChecker
 
