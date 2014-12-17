@@ -1,6 +1,21 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    active_shipping (0.12.5)
+      active_utils (~> 2.2.0)
+      activesupport (>= 2.3.5)
+      builder
+      i18n
+      json (>= 1.5.1)
+    active_utils (2.2.3)
+      activesupport (>= 2.3.11)
+      i18n
+    activesupport (4.1.8)
+      i18n (~> 0.6, >= 0.6.9)
+      json (~> 1.7, >= 1.7.7)
+      minitest (~> 5.1)
+      thread_safe (~> 0.1)
+      tzinfo (~> 1.1)
     akami (1.2.2)
       gyoku (>= 0.4.0)
       nokogiri
@@ -12,11 +27,14 @@ GEM
     httpclient (2.5.3.3)
     httpi (2.3.0)
       rack
+    i18n (0.6.11)
+    json (1.8.1)
     macaddr (1.7.1)
       systemu (~> 2.6.2)
     method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile (0.6.1)
+    minitest (5.5.0)
     nokogiri (1.6.5)
       mini_portile (~> 0.6.0)
     nori (2.4.0)
@@ -36,6 +54,9 @@ GEM
       wasabi (= 3.3.0)
     slop (3.6.0)
     systemu (2.6.4)
+    thread_safe (0.3.4)
+    tzinfo (1.2.2)
+      thread_safe (~> 0.1)
     uuid (2.3.7)
       macaddr (~> 1.0)
     wasabi (3.3.0)
@@ -47,6 +68,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_shipping
   dotenv
   httpclient
   pry
