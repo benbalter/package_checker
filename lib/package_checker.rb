@@ -7,12 +7,14 @@ class PackageChecker
 
   attr_accessor :username
   attr_accessor :password
+  attr_accessor :building
 
   WSDL = "http://www.buildinglink.com/Services/MobileLinkResident1_3.svc?singleWsdl"
 
   def initialize(options)
     @username = options[:username]
     @password = options[:password]
+    @building = Building.new(self)
   end
 
   def client
@@ -24,26 +26,12 @@ class PackageChecker
     end
   end
 
-  def building_id
-    authorized_buildings[:building][:id]
-  end
-
-  def login_id
-    authorized_buildings[:building][:login_id]
-  end
-
-  def authorized_buildings
-    @authorized_buildings ||= get(:authorized_buildings, {
-      :username => username, :password => password
-    })[:buildings]
-  end
-
   def message
     {
-      :building_id => building_id,
+      :building_id => building.id,
       :username    => username,
       :password    => password,
-      :login_id    => login_id,
+      :login_id    => building.login_id,
     }
   end
 
@@ -53,10 +41,8 @@ class PackageChecker
       []
     else
       [Package.new(events[:event])]
-    end 
+    end
   end
-
-  private
 
   def get(endpoint, message = message)
     response = client.call("get_#{endpoint}".to_sym, :message => message)
