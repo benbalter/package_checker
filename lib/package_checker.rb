@@ -1,5 +1,7 @@
 require 'httpclient'
 require 'savon'
+require_relative "package_checker/package"
+require_relative "package_checker/building"
 
 class PackageChecker
 
@@ -31,10 +33,9 @@ class PackageChecker
   end
 
   def authorized_buildings
-    @authorized_buildings ||= begin
-      response = client.call(:get_authorized_buildings, message: { :username => username, :password => password })
-      response.body[:get_authorized_buildings_response][:get_authorized_buildings_result][:buildings]
-    end
+    @authorized_buildings ||= get(:authorized_buildings, {
+      :username => username, :password => password
+    })[:buildings]
   end
 
   def message
@@ -46,7 +47,19 @@ class PackageChecker
     }
   end
 
-  def events
-    client.call(:get_events, :message => message).body
+  def packages
+    events = get(:events)
+    if events.empty?
+      []
+    else
+      [Package.new(events[:event])]
+    end 
+  end
+
+  private
+
+  def get(endpoint, message = message)
+    response = client.call("get_#{endpoint}".to_sym, :message => message)
+    response.body["get_#{endpoint}_response".to_sym]["get_#{endpoint}_result".to_sym]
   end
 end
