@@ -4,6 +4,7 @@ require 'active_shipping'
 require 'dotenv'
 require_relative "package_checker/package"
 require_relative "package_checker/building"
+require_relative "package_checker/carrier"
 
 Dotenv.load
 I18n.enforce_available_locales = false
@@ -42,10 +43,10 @@ class PackageChecker
 
   def packages
     events = get(:events)
-    if events.empty?
+    if events.to_a.empty?
       []
     else
-      [Package.new(events[:event])]
+      events[:event].to_a.map { |event| Package.new(event) }
     end
   end
 
