@@ -43,10 +43,12 @@ class PackageChecker
 
   def packages
     events = get(:events)
-    if events.to_a.empty?
+    if events.empty?
       []
+    elsif events[:event].class == Hash
+      [Package.new(events[:event])]
     else
-      events[:event].to_a.map { |event| Package.new(event) }
+      events[:event].map { |event| Package.new(event) }
     end
   end
 
