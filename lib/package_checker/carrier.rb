@@ -19,7 +19,7 @@ class PackageChecker
         fedex
       when /^[0-9]{15}$/i
         fedex
-      when /(\b\d{30}\b)|(\b91\d+\b)|(\b\d{20}\b)/i
+      when /(\b\d{30}\b)|(\b91\d+\b)|(\b\d{20}\b)|(\b\d{34}\b)/i
         usps
       when /^E\D{1}\d{9}\D{2}$|^9\d{15,21}$/i
         usps
